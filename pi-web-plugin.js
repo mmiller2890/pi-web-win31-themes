@@ -107,16 +107,22 @@ const tokens = {
 // Bevel and surface values the chrome CSS interpolates per theme.
 const palettes = {
   [THEME_OLED]: {
-    bevelLight: "#cfcfcf",
+    bevelLight: "#c0c0c0",
     bevelDark: "#262626",
     surface: "#101010",
     surfaceHover: "#1a1a1a",
     fieldBg: "#000000",
     msgBg: "#101010",
     userMsgBg: "#000060",
-    focusDot: "#cfcfcf",
+    focusDot: "#c0c0c0",
     scrollbarTrack: "#000000",
     scrollbarThumb: "#101010",
+    appBg: "#000000",
+    outline: "#808080",
+    glyph: "#c0c0c0",
+    troughAlt: "#101010",
+    captionInactiveBg: "#808080",
+    captionInactiveText: "#c0c0c0",
     document: `
   body {
     background: #000000;
@@ -140,6 +146,12 @@ const palettes = {
     focusDot: "#808080",
     scrollbarTrack: "#c0c0c0",
     scrollbarThumb: "#c0c0c0",
+    appBg: "#c0c0c0",
+    outline: "#000000",
+    glyph: "#000000",
+    troughAlt: "#ffffff",
+    captionInactiveBg: "#808080",
+    captionInactiveText: "#c0c0c0",
     desktop: `
   /* AppWorkspace silver (#c0c0c0) is the 3.1 default surface — grey
      everywhere, with white (COLOR_WINDOW) reserved for document and edit
@@ -219,7 +231,15 @@ dialog {
   border-right-color: ${p.bevelDark} !important;
 }
 
-/* ---- sunken bevel: inputs, text areas, lists ---- */
+/* 3.1 push buttons carry a 1px defining outline outside the bevel */
+button,
+[role="button"],
+select,
+.machine-switcher-button,
+.msg-action,
+.notification-control {
+  box-shadow: 0 0 0 1px ${p.outline} !important;
+}
 input,
 textarea,
 [role="textbox"],
@@ -299,13 +319,15 @@ code {
   font-family: ${MONO_STACK} !important;
 }
 
-/* ---- chunky square scrollbars ---- */
+/* ---- chunky square scrollbars: 3.1 arrow boxes over a dithered trough ---- */
 ::-webkit-scrollbar {
   width: 16px;
   height: 16px;
 }
 ::-webkit-scrollbar-track {
-  background: ${p.scrollbarTrack};
+  background-color: ${p.scrollbarTrack};
+  background-image: repeating-conic-gradient(${p.troughAlt} 0% 25%, transparent 0% 50%);
+  background-size: 2px 2px;
 }
 ::-webkit-scrollbar-thumb {
   background: ${p.scrollbarThumb};
@@ -318,7 +340,9 @@ code {
   background: ${p.scrollbarTrack};
 }
 ::-webkit-scrollbar-button:single-button {
-  background: ${p.scrollbarThumb};
+  background-color: ${p.scrollbarThumb} !important;
+  background-position: center;
+  background-repeat: no-repeat;
   border-top: 2px solid ${p.bevelLight};
   border-left: 2px solid ${p.bevelLight};
   border-bottom: 2px solid ${p.bevelDark};
@@ -326,6 +350,23 @@ code {
   display: block;
   height: 16px;
   width: 16px;
+}
+/* the black triangle arrows of a 3.1 scrollbar */
+::-webkit-scrollbar-button:single-button:vertical:decrement {
+  background-image: conic-gradient(from 315deg at 50% 50%, ${p.glyph} 0 90deg, transparent 0) !important;
+  background-size: 9px 9px !important;
+}
+::-webkit-scrollbar-button:single-button:vertical:increment {
+  background-image: conic-gradient(from 135deg at 50% 50%, ${p.glyph} 0 90deg, transparent 0) !important;
+  background-size: 9px 9px !important;
+}
+::-webkit-scrollbar-button:single-button:horizontal:decrement {
+  background-image: conic-gradient(from 225deg at 50% 50%, ${p.glyph} 0 90deg, transparent 0) !important;
+  background-size: 9px 9px !important;
+}
+::-webkit-scrollbar-button:single-button:horizontal:increment {
+  background-image: conic-gradient(from 45deg at 50% 50%, ${p.glyph} 0 90deg, transparent 0) !important;
+  background-size: 9px 9px !important;
 }
 
 /* ---- message cards read as little 3.1 windows ---- */
@@ -345,8 +386,12 @@ code {
 .msg.user * {
   color: #ffffff !important;
 }
-/* every message gets a navy title bar */
+/* every message is a 3.1 window: navy caption for the newest, the 3.1 grey
+   inactive caption for older ones */
 .msg-header {
+  position: relative !important;
+  padding-left: 18px !important;
+  padding-right: 34px !important;
   background: #000080 !important;
   border-bottom: 2px solid ${p.bevelDark};
 }
@@ -354,6 +399,50 @@ code {
 .msg-header *,
 .msg-meta {
   color: #ffffff !important;
+}
+article.msg:not(:last-of-type) .msg-header {
+  background: ${p.captionInactiveBg} !important;
+}
+article.msg:not(:last-of-type) .msg-header,
+article.msg:not(:last-of-type) .msg-header * {
+  color: ${p.captionInactiveText} !important;
+}
+/* system-menu box at the left of the caption */
+.msg-header::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 11px;
+  height: 11px;
+  border: 1px solid ${p.outline};
+  background-color: ${p.surface};
+  background-image: linear-gradient(${p.glyph}, ${p.glyph});
+  background-size: 6px 2px;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: inset 1px 1px 0 ${p.bevelLight}, inset -1px -1px 0 ${p.bevelDark};
+}
+/* minimize and maximize arrow boxes at the right */
+.msg-header::after {
+  content: "";
+  position: absolute;
+  right: 2px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 11px;
+  border: 1px solid ${p.outline};
+  background-color: ${p.surface};
+  background-image:
+    conic-gradient(from 135deg at 50% 50%, ${p.glyph} 0 90deg, transparent 0),
+    conic-gradient(from 315deg at 50% 50%, ${p.glyph} 0 90deg, transparent 0),
+    linear-gradient(${p.outline}, ${p.outline});
+  background-size: 7px 7px, 7px 7px, 1px 9px;
+  background-position: 4px 2px, 16px 2px, 13px 1px;
+  background-repeat: no-repeat;
+  box-shadow: inset 1px 1px 0 ${p.bevelLight}, inset -1px -1px 0 ${p.bevelDark};
 }
 
 /* ---- prompt editor: sunken input field, chunky buttons ---- */
@@ -381,8 +470,7 @@ code {
   border-right-color: ${p.bevelDark} !important;
   background: ${p.surface} !important;
 }
-.panel-content,
-.files-panel {
+.panel-content {
   border-style: solid !important;
   border-width: 2px !important;
   border-top-color: ${p.bevelDark} !important;
@@ -422,6 +510,30 @@ header > strong:first-child:not([class])::before {
     linear-gradient(#00c800 0 50%, #ffd800 50% 100%) 10px 3px / 8px 14px no-repeat,
     linear-gradient(#ff2b2b 0 50%, #2b6bff 50% 100%) 0 0 / 8px 14px no-repeat;
   transform: skewY(-6deg);
+}
+
+/* ---- sidebar sections become 3.1 group boxes: a 1px frame with the label
+   sitting on the top border line, like the Control Panel dialogs ---- */
+:host(project-list),
+:host(workspace-list),
+:host(session-list) {
+  border: 1px solid ${p.outline} !important;
+  margin: 16px 8px 8px !important;
+  padding: 0 6px 6px !important;
+}
+:host(project-list) .section-toggle,
+:host(workspace-list) .section-toggle,
+:host(session-list) .section-toggle {
+  position: relative !important;
+  z-index: 1 !important;
+  display: inline-flex !important;
+  transform: translateY(-9px) !important;
+  background: ${p.appBg} !important;
+}
+/* menu bars sit on a strip closed by a dark rule */
+.tabs,
+.workspace-header-strip {
+  border-bottom-color: ${p.outline} !important;
 }
 
 /* ---- the desktop ---- */

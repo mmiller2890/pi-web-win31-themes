@@ -42,10 +42,20 @@ by content revision).
   light/dark pair, so they show up in the theme picker like any built-in.
 - Injects the chrome CSS that tokens cannot express — 2px raised/sunken
   bevels, zero border radii, square chunky scrollbars, dotted focus
-  outlines, navy title bars on message cards, and the four-pane waving
-  flag on the corner wordmark. PI WEB renders inside nested open shadow
-  roots, so the plugin keeps a themed `<style>` clone in every shadow root
-  while one of its themes is active and removes them all on switch-away.
+  outlines, and the four-pane waving flag on the corner wordmark. PI WEB
+  renders inside nested open shadow roots, so the plugin keeps a themed
+  `<style>` clone in every shadow root while one of its themes is active
+  and removes them all on switch-away.
+- Rebuilds the 3.1 window furniture from the SDK metrics: every message
+  window carries the system-menu box at the left of its caption and the
+  minimize/maximize arrow boxes at the right, the newest window shows the
+  navy active caption while older ones take the grey inactive caption, and
+  sidebar sections (Projects / Workspaces / Sessions) render as 3.1 group
+  boxes with the label sitting on the frame line.
+- Push buttons carry the 1px defining outline outside the bevel and shift
+  their content on press; scrollbars get the stippled trough and arrow
+  boxes (arrows appear in browsers that render scrollbar buttons — Safari,
+  and Chromium on Windows/macOS).
 - Bundles the [W95FA](https://www.dafont.com/w95fa.font) pixel font
   (SIL OFL 1.1) so controls, chat bodies, and the wordmark render like
   MS Sans Serif — offline, no CDN. Code blocks and terminals stay mono.
