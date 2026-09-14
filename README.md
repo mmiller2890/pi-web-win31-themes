@@ -18,7 +18,7 @@ title bars, and the pixel font of 1992 — in two flavors.
 As a Pi package (recommended):
 
 ```bash
-pi install github:mmiller2890/pi-web-win31-themes
+pi install git:github.com/mmiller2890/pi-web-win31-themes
 ```
 
 Reload your PI WEB tab, then open **Actions → Select Theme** and pick one of
