@@ -5,11 +5,9 @@ title bars, and the pixel font of 1992 — in two flavors.
 
 | Theme | Scheme | Look |
 | --- | --- | --- |
-| **Windows 3.1 Classic** | light | Reference-inspired off-white `#f4f4f4` window interiors, gray controls with sharp black outlines and white/gray bevels, navy `#000080` title bars and frames, and black text. No wallpaper or teal background. Terminal stays black with silver text. |
+| **Windows 3.1 Classic** | light | The default 3.1 surface: silver `#c0c0c0` app workspace and buttons (COLOR_APPWORKSPACE / COLOR_BTNFACE) with white/gray bevels, black `#000000` window frames (COLOR_WINDOWFRAME), navy `#000080` title bars, and black text. White appears only where 3.1 used it — document and edit areas, so the prompt field and code blocks. No wallpaper or teal desktop. Terminal stays black with silver text. |
 | **Windows 3.1 OLED** | dark | The same 3.1 chrome on pure `#000000`: silver text, a subtle 50% checkerboard dither, everything else you know from the Classic look. |
 | **Auto pair** | follows system | Light → Classic, dark → OLED. |
-
-Classic preview from v1.0.1 (the current version uses off-white interiors and no teal rim):
 
 ![Classic theme](docs/classic.png)
 

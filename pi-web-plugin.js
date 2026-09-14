@@ -66,8 +66,8 @@ const tokens = {
   // (COLOR_BACKGROUND) only peeks around window edges, so here it is a
   // thin rim around the app, not the app's own background.
   [THEME_CLASSIC]: {
-    "--pi-bg": "#f4f4f4",
-    "--pi-surface": "#f4f4f4",
+    "--pi-bg": "#c0c0c0",
+    "--pi-surface": "#c0c0c0",
     "--pi-surface-hover": "#dfdfdf",
     "--pi-terminal-bg": "#000000",
     "--pi-terminal-text": "#c0c0c0",
@@ -133,28 +133,35 @@ const palettes = {
     bevelLight: "#ffffff",
     bevelDark: "#808080",
     surface: "#c0c0c0",
-    surfaceHover: "#dfdfdf",
+    surfaceHover: "#d4d4d4",
     fieldBg: "#ffffff",
-    msgBg: "#f4f4f4",
-    userMsgBg: "#f4f4f4",
+    msgBg: "#c0c0c0",
+    userMsgBg: "#c0c0c0",
     focusDot: "#808080",
     scrollbarTrack: "#c0c0c0",
     scrollbarThumb: "#c0c0c0",
     desktop: `
-  /* Pale window interiors, gray controls, and blue active frames. */
+  /* AppWorkspace silver (#c0c0c0) is the 3.1 default surface — grey
+     everywhere, with white (COLOR_WINDOW) reserved for document and edit
+     areas, and black (COLOR_WINDOWFRAME) window outlines. */
   .shell, .chat-view, .chat, .chat-wrap {
-    background: #f4f4f4 !important;
+    background: #c0c0c0 !important;
   }
   button, [role="button"], select, .bar, .tabs, .toolbar {
     background-color: #c0c0c0;
     color: #000000;
     box-shadow: 0 0 0 1px #000000;
   }
-  .action-row, .list-body, .list, pre, code {
+  .action-row, .list-body, .list {
+    border: 1px solid #000000 !important;
+  }
+  /* document areas: the one place 3.1 used white */
+  pre, code {
+    background: #ffffff !important;
     border: 1px solid #000000 !important;
   }
   .msg {
-    border: 3px solid #000080 !important;
+    border: 2px solid #000000 !important;
   }
   .msg.user, .msg.user * {
     color: #000000 !important;
@@ -169,9 +176,9 @@ const palettes = {
     color: #000000 !important;
   }`,
     document: `
-  body { background: #f4f4f4; }
+  body { background: #c0c0c0; }
   pi-web-app {
-    border: 3px solid #808080;
+    border: 2px solid #000000;
     box-sizing: border-box;
   }`,
   },
