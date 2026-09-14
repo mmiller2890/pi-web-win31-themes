@@ -5,9 +5,11 @@ title bars, and the pixel font of 1992 — in two flavors.
 
 | Theme | Scheme | Look |
 | --- | --- | --- |
-| **Windows 3.1 Classic** | light | The authentic 3.1 system palette: solid teal desktop `#008080`, silver `#c0c0c0` chrome with white/gray bevels, navy `#000080` title bars, black window text, and an MS-DOS Prompt for the terminal (black bg, silver text). |
+| **Windows 3.1 Classic** | light | Reference-inspired off-white `#f4f4f4` window interiors, gray controls with sharp black outlines and white/gray bevels, navy `#000080` title bars and frames, and black text. No wallpaper or teal background. Terminal stays black with silver text. |
 | **Windows 3.1 OLED** | dark | The same 3.1 chrome on pure `#000000`: silver text, a subtle 50% checkerboard dither, everything else you know from the Classic look. |
 | **Auto pair** | follows system | Light → Classic, dark → OLED. |
+
+Classic preview from v1.0.1 (the current version uses off-white interiors and no teal rim):
 
 ![Classic theme](docs/classic.png)
 
@@ -22,7 +24,8 @@ pi install git:github.com/mmiller2890/pi-web-win31-themes
 ```
 
 Reload your PI WEB tab, then open **Actions → Select Theme** and pick one of
-the Windows 3.1 themes (or the auto pair). Uninstall with
+the Windows 3.1 themes. Turn **Auto off** to keep your explicit choice;
+with Auto on, your OS appearance selects Classic or OLED. Uninstall with
 `pi remove pi-web-win31-themes`.
 
 Or check it out directly as a local plugin:

@@ -66,8 +66,8 @@ const tokens = {
   // (COLOR_BACKGROUND) only peeks around window edges, so here it is a
   // thin rim around the app, not the app's own background.
   [THEME_CLASSIC]: {
-    "--pi-bg": "#c0c0c0",
-    "--pi-surface": "#c0c0c0",
+    "--pi-bg": "#f4f4f4",
+    "--pi-surface": "#f4f4f4",
     "--pi-surface-hover": "#dfdfdf",
     "--pi-terminal-bg": "#000000",
     "--pi-terminal-text": "#c0c0c0",
@@ -135,29 +135,43 @@ const palettes = {
     surface: "#c0c0c0",
     surfaceHover: "#dfdfdf",
     fieldBg: "#ffffff",
-    msgBg: "#c0c0c0",
-    userMsgBg: "#000080",
+    msgBg: "#f4f4f4",
+    userMsgBg: "#f4f4f4",
     focusDot: "#808080",
     scrollbarTrack: "#c0c0c0",
     scrollbarThumb: "#c0c0c0",
     desktop: `
-  /* the app is one big 3.1 window: silver frame, white client area */
-  .shell,
-  .chat-view {
-    background-color: #c0c0c0 !important;
-    background-image: none !important;
+  /* Pale window interiors, gray controls, and blue active frames. */
+  .shell, .chat-view, .chat, .chat-wrap {
+    background: #f4f4f4 !important;
   }
-  .chat,
-  .chat-wrap {
-    background-color: #ffffff !important;
+  button, [role="button"], select, .bar, .tabs, .toolbar {
+    background-color: #c0c0c0;
+    color: #000000;
+    box-shadow: 0 0 0 1px #000000;
+  }
+  .action-row, .list-body, .list, pre, code {
+    border: 1px solid #000000 !important;
+  }
+  .msg {
+    border: 3px solid #000080 !important;
+  }
+  .msg.user, .msg.user * {
+    color: #000000 !important;
+  }
+  .msg-header, .msg-header *, .msg.user .msg-header * {
+    color: #ffffff !important;
+  }
+  .msg-header {
+    border-bottom: 1px solid #000000;
+  }
+  header > strong:first-child:not([class]) {
+    color: #000000 !important;
   }`,
     document: `
-  /* teal desktop peeks around the window like a real 3.1 screenshot */
-  body {
-    background: #008080;
-  }
+  body { background: #f4f4f4; }
   pi-web-app {
-    border: 6px solid #008080;
+    border: 3px solid #808080;
     box-sizing: border-box;
   }`,
   },
