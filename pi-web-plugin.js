@@ -61,8 +61,12 @@ const tokens = {
   // The authentic 3.1 system palette: teal desktop (COLOR_BACKGROUND),
   // silver chrome (COLOR_BTNFACE), navy title bars (COLOR_ACTIVECAPTION),
   // black window text, and an MS-DOS Prompt for the terminal.
+  // The authentic 3.1 window look: a screenshot is dominated by silver
+  // chrome (COLOR_BTNFACE) and white client areas — the teal desktop
+  // (COLOR_BACKGROUND) only peeks around window edges, so here it is a
+  // thin rim around the app, not the app's own background.
   [THEME_CLASSIC]: {
-    "--pi-bg": "#008080",
+    "--pi-bg": "#c0c0c0",
     "--pi-surface": "#c0c0c0",
     "--pi-surface-hover": "#dfdfdf",
     "--pi-terminal-bg": "#000000",
@@ -113,6 +117,10 @@ const palettes = {
     focusDot: "#cfcfcf",
     scrollbarTrack: "#000000",
     scrollbarThumb: "#101010",
+    document: `
+  body {
+    background: #000000;
+  }`,
     desktop: `
   .shell,
   .chat-view {
@@ -133,11 +141,24 @@ const palettes = {
     scrollbarTrack: "#c0c0c0",
     scrollbarThumb: "#c0c0c0",
     desktop: `
-  /* the 3.1 desktop was solid teal — COLOR_BACKGROUND, no dither */
+  /* the app is one big 3.1 window: silver frame, white client area */
   .shell,
   .chat-view {
-    background-color: #008080 !important;
+    background-color: #c0c0c0 !important;
     background-image: none !important;
+  }
+  .chat,
+  .chat-wrap {
+    background-color: #ffffff !important;
+  }`,
+    document: `
+  /* teal desktop peeks around the window like a real 3.1 screenshot */
+  body {
+    background: #008080;
+  }
+  pi-web-app {
+    border: 6px solid #008080;
+    box-sizing: border-box;
   }`,
   },
 };
@@ -393,9 +414,10 @@ ${p.desktop}
 `;
 }
 
-/** Document-level rules: font face and control-font vars for the active theme. */
+/** Document-level rules: font face, control-font vars, body chrome. */
 function documentCss(themeId) {
   const attr = `html[data-pi-web-theme="${pluginId}:${themeId}"]`;
+  const p = palettes[themeId];
   return `
 @font-face {
   font-family: "W95FA";
@@ -411,6 +433,7 @@ ${attr} {
 ${attr} body {
   font-family: ${FONT_STACK};
 }
+${p.document ?? ""}
 `;
 }
 
