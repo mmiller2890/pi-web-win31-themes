@@ -457,6 +457,16 @@ article.msg:not(:last-of-type) .msg-header * {
   background: ${p.fieldBg} !important;
 }
 
+/* the prompt reads at the same size as the responses (14px / 1.45), while
+   buttons and labels keep the 3.1 control size */
+.cm-content,
+.cm-line,
+.cm-placeholder,
+.cm-scroller {
+  font-size: 14px !important;
+  line-height: 1.45 !important;
+}
+
 /* ---- status bar, tabs, panels ---- */
 .bar,
 .workspace-header-strip,
