@@ -1,0 +1,13 @@
+{
+  "name": "pi-web-win31-themes",
+  "version": "1.0.0",
+  "description": "Windows 3.1 themes for PI WEB: Classic (authentic 3.1 system palette) and OLED (beveled chrome on pure black), with a system-following auto pair.",
+  "license": "MIT",
+  "repository": "github:mmiller2890/pi-web-win31-themes",
+  "keywords": ["pi", "pi-web", "theme", "windows-3.1", "retro"],
+  "piWeb": {
+    "plugins": [
+      { "id": "win31-themes", "browserRoot": ".", "module": "pi-web-plugin.js" }
+    ]
+  }
+}
