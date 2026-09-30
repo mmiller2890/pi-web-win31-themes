@@ -685,7 +685,10 @@ function syncActivation() {
 }
 
 const plugin = {
-  apiVersion: 2,
+  // Browser plugin API v4 (PI WEB 1.202609+). Older PI WEB hosts reject
+  // anything below their current contract, so use v1.1.1 of this package
+  // there.
+  apiVersion: 4,
   name: "Windows 3.1 Themes",
   activate: ({ pluginId: id }) => {
     if (typeof id === "string" && id !== "") pluginId = id;
@@ -725,6 +728,13 @@ const plugin = {
             dark: THEME_OLED,
           },
         ],
+      },
+      // Host-bounded teardown: drop every injected sheet and stop observing.
+      dispose: () => {
+        themeObserver?.disconnect();
+        themeObserver = null;
+        deactivate();
+        activeThemeId = null;
       },
     };
   },

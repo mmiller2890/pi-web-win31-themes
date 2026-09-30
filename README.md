@@ -65,8 +65,12 @@ the chrome disappears without a trace.
 
 ## Compatibility
 
-Built against PI WEB browser plugin API v2 (`apiVersion: 2`). No server
-entry, no Pi extension — pure browser plugin.
+Requires PI WEB with **browser plugin API v4** (`apiVersion: 4`, PI WEB
+`1.202609` or newer). PI WEB has no cross-version compatibility shim, so a
+host rejects plugins that declare an older contract — on older PI WEB, use
+the `v1.1.1` tag of this package (the last API v2 release) instead.
+
+No server entry, no Pi extension — pure browser plugin.
 
 ## License
 
